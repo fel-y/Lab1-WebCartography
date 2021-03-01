@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
+	<link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
+	<div id='map'></div>
+	<div class='map-overlay' id='features'><h2>Food Bank and Health Service Locations in BC </h2><div id='pd'><p>Distribution and proximity of food banks to health services and other amenities. <br /> <b>Zoom in and click on a dot for more information!</b></p></div></div>
+	<div class='map-overlay' id='legend'></div> 
+	<style>
+		body {
+		  margin: 0;
+		  padding: 0;
+		}
+
+		h2,
+		h3 {
+		  margin: 10px;
+		  font-size: 1.2em;
+		}
+
+		h3 {
+		  font-size: 1em;
+		}
+
+		p {
+		  font-size: 0.85em;
+		  margin: 10px;
+		  text-align: left;
+		}
+
+		#map {
+		  position: absolute;
+		  top: 0;
+		  bottom: 0;
+		  width: 100%;
+		}
+
+		.map-overlay {
+ 		 position: absolute;
+ 		 bottom: 0;
+ 		 right: 0;
+		  background: rgba(255, 255, 255, 0.8);
+		  margin-right: 20px;
+		  font-family: Arial, sans-serif;
+		  overflow: auto;
+		  border-radius: 3px;
+		}
+
+		#features {
+		  top: 0;
+		  height: 80px;
+		  margin-top: 20px;
+		  width: 530px;
+		}
+
+		#legend {
+ 		 padding: 10px;
+ 		 box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+ 		 line-height: 18px;
+		  height: 50px;
+		  margin-bottom: 50px;
+		  width: 230px;
+		}
+
+		.legend-key {
+		  display: inline-block;
+		  border-radius: 20%;
+		  width: 10px;
+		  height: 10px;
+		  flex: 0 0 10px;
+		  margin-right: 5px;
+
+		#container div {
+ 		 display: flex;
+		}
+
+	</style>
+</head>
+<body>
+
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiZmVsLXkiLCJhIjoiY2tsY3I1ZTdvMG90azJvbWRoZDY5M3ZscCJ9.MhRD9-LaX3YYhPBwtmaWxQ';
+
+var map = new mapboxgl.Map({
+  container: 'map', // container id
+  style: 'mapbox://styles/fel-y/cklczv4rm1btm17p2e56m01qx' // replace this with your style URL
+});
+        // set map bounds to BC, Canada
+       map.fitBounds([
+          [-130, 48],
+          [-115.63671875, 60.696361]
+        ]);
+        // make a pointer cursor
+        map.getCanvas().style.cursor = 'default';
+
+     // wait for map to load before adjusting it
+      map.on('load', function () {
+
+        // define layer names
+        var layers = [
+          'Food Bank Locations',
+          'Mental Health and Substance Use Health Services'
+        ];
+        var colors = [
+          '#d95f02',
+          '#7570b3'
+        ];
+
+        // create legend
+        for (i = 0; i < layers.length; i++) {
+          var layer = layers[i];
+          var color = colors[i];
+          var item = document.createElement('div');
+          var key = document.createElement('span');
+          key.className = 'legend-key';
+          key.style.backgroundColor = color;
+
+          var value = document.createElement('span');
+          value.innerHTML = layer;
+          item.appendChild(key);
+          item.appendChild(value);
+          legend.appendChild(item);
+        }
+
+map.on('click', function(e) {
+  var features = map.queryRenderedFeatures(e.point, {
+    layers: ['food bank'] // layer name
+  });
+
+  if (!features.length) {
+    return;
+  }
+
+  var feature = features[0];
+
+  var popup = new mapboxgl.Popup({ offset: [0, -15] })
+    .setLngLat(feature.geometry.coordinates)
+    .setHTML('<h3>' + feature.properties.FACILITY_NAME + '</h3><p>' + '<b>' + 'Address: ' + '</b>' + feature.properties.STREET_ADDRESS + ', ' +  feature.properties.POSTAL_CODE + '<br />' + '<b>' + 'Website: ' + '</b>' + feature.properties.WEBSITE_URL + '<br />' + '<b>' + 'Phone: ' + '</b>' + feature.properties.CONTACT_PHONE + '</p>')
+    .addTo(map);
+	});
+
+map.on('click', function(e) {
+  var features = map.queryRenderedFeatures(e.point, {
+    layers: ['mental-hlth-sub-use'] // layer name
+  });
+
+  if (!features.length) {
+    return;
+  }
+
+  var feature = features[0];
+
+  var popup1 = new mapboxgl.Popup({offset: [0, -15]})
+    .setMaxWidth('400px')
+    .setLngLat(feature.geometry.coordinates)
+    .setHTML('<h3>' + feature.properties.RG_NAME + '</h3><p>' + '<b>' + 'Address: ' + '</b>' + feature.properties.STREET_ADDRESS + ', ' + feature.properties.CITY + ', ' + feature.properties.PROVINCE + ', ' + feature.properties.POSTAL_CODE + '<br />' + '<b>' + 'Website: ' + '</b>' + feature.properties.WEBSITE_URL + '<br />' + '<b>' + 'Phone: ' + '</b>' + feature.properties.CONTACT_PHONE + '<br />' + '<b>' + 'Description: ' + '</b>' + feature.properties.SV_DESCRIPTION + '</p>')
+    .addTo(map);
+	});
+      });
+    </script>
+  </body>
+</html>
