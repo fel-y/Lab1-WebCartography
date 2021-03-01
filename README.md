@@ -5,11 +5,10 @@ This map shows the distribution of Food Banks and Health Service Locations in th
 ## Map Excerpt:
 ![472 Lab1 Map Excerpt](472Lab1.png)
 
-## Link to Final Map:
-![472 Lab1 Map Excerpt](472_Lab1.html)
-<iframe src="472_Lab1.html" width="600"></iframe>
-[Full map](472_Lab1.html)
-[Download Page](./Lab1-WebCartography/472_Lab1.html)
+## Final Map:
+[Full Map](472_Lab1.html)
+<iframe src="472_Lab1.html" height = '300' width="600"></iframe>
+
 
 ## Reflective analysis:
 
