@@ -2,10 +2,10 @@
 
 This map shows the distribution of Food Banks and Health Service Locations in the province of British Columbia.
 
-## Map Excerpt:
+## Map Excerpt [screenshot]:
 ![472 Lab1 Map Excerpt](472Lab1.png)
 
-## Final Map:
+## Final Map [interactive]:
 [Full Map](472_Lab1.html)
 <iframe src="472_Lab1.html" height = '300' width="600"></iframe>
 
