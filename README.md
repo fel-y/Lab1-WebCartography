@@ -37,4 +37,9 @@ Phone: undefined
   * It is hard to draw the connection between the two variables.
   * consider the experience of the person viewing this - is it for someone who is experiencing homelessness or for research purposes and community volunteers looking to help people expereincing homelessness?
 
+## Data Sources
+
+Ministry of Health. (2021). Mental Health and Substance Use Health Services [GeoJSON]. Retrieved from https://catalogue.data.gov.bc.ca/dataset/mental-health-and-substance-use-health-services#edc-pow
+
+Ministry of Forests, Lands, Natural Resource Operations and Rural Development. (2021). Food Banks  [GeoJSON]. Retrieved from https://catalogue.data.gov.bc.ca/dataset/food-banks#edc-pow 
 
